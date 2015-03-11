@@ -311,7 +311,7 @@ class TestConnection(unittest2.TestCase):
         ])
         http = conn._http = Http(
             {'status': '200', 'content-type': 'application/json'},
-            b'{"items": [{"name": "%s"}]}' % BUCKET_NAME,
+            '{{"items": [{{"name": "{0}"}}]}}'.format(BUCKET_NAME).encode()
         )
         buckets = list(conn.get_all_buckets())
         self.assertEqual(len(buckets), 1)
@@ -353,7 +353,7 @@ class TestConnection(unittest2.TestCase):
         ])
         http = conn._http = Http(
             {'status': '200', 'content-type': 'application/json'},
-            b'{"name": "%s"}' % BLOB_NAME,
+            '{{"name": "{0}"}}'.format(BLOB_NAME).encode(),
         )
         bucket = conn.get_bucket(BLOB_NAME)
         self.assertTrue(isinstance(bucket, Bucket))
@@ -375,7 +375,7 @@ class TestConnection(unittest2.TestCase):
             ])
         http = conn._http = Http(
             {'status': '200', 'content-type': 'application/json'},
-            b'{"name": "%s"}' % BLOB_NAME,
+            '{{"name": "{0}"}}'.format(BLOB_NAME).encode()
         )
         bucket = conn.create_bucket(BLOB_NAME)
         self.assertTrue(isinstance(bucket, Bucket))
