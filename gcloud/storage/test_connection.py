@@ -111,7 +111,7 @@ class TestConnection(unittest2.TestCase):
         headers, content = conn._make_request('GET', URI)
         self.assertEqual(headers['status'], '200')
         self.assertEqual(headers['content-type'], 'text/plain')
-        self.assertEqual(content, '')
+        self.assertEqual(content, b'')
         self.assertEqual(http._called_with['method'], 'GET')
         self.assertEqual(http._called_with['uri'], URI)
         self.assertEqual(http._called_with['body'], None)
@@ -204,7 +204,7 @@ class TestConnection(unittest2.TestCase):
             b'CONTENT',
         )
         self.assertEqual(conn.api_request('GET', '/', expect_json=False),
-                         'CONTENT')
+                         b'CONTENT')
 
     def test_api_request_w_query_params(self):
         from six.moves.urllib.parse import parse_qsl
