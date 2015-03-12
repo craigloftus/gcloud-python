@@ -176,8 +176,9 @@ def make_exception(response, content, use_json=True):
     errors = ()
 
     if isinstance(content, six.binary_type):
+        message = content.decode('utf-8')
         if use_json:
-            payload = json.loads(content.decode('utf-8'))
+            payload = json.loads(message)
         else:
             payload = {}
     else:
